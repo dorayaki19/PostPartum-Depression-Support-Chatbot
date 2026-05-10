@@ -1,0 +1,104 @@
+body {
+  background: #f6f7fb;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px;
+  text-align: center;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+
+/* ===== TWO COLUMN LAYOUT ===== */
+
+.layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+
+/* ===== LEFT CARD ===== */
+
+.card {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+
+/* ===== RIGHT HISTORY ===== */
+
+.historyPanel {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-height: 520px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.entry {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* ===== INPUTS ===== */
+
+input, textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+
+/* ===== BUTTON ===== */
+
+button {
+  background: #6c8cff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #5874e0;
+}
+
+
+/* ===== RESULT BOX ===== */
+
+.result {
+  margin-top: 15px;
+  background: #fff3cd;
+  padding: 12px;
+  border-radius: 10px;
+}
