@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Postpartum Diary - Compassionate Support</title>
+    <style>
+        :root {
+            --primary: #6c8cff;
+            --primary-hover: #5874e0;
+            --bg: #f6f7fb;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --pink: #ff85a1;
+            --result-bg: #fff3cd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-sub);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(108, 140, 255, 0.3);
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 140, 255, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            background: var(--result-bg);
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .history-panel {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .history-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .history-panel::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 10px;
+        }
+
+        .entry-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--pink);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .entry-date {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .entry-severity {
+            background: #f0f2ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .entry-text {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🌸 Postpartum Diary</h1>
+        <p class="subtitle">A safe space for your thoughts. Powered by emotional analysis.</p>
+    </header>
+
+    <div class="layout">
+        <!-- Writing Area -->
+        <section class="card">
+            <h2>✍️ New Entry</h2>
+            <div class="form-group">
+                <label for="entry-date">Date</label>
+                <input type="date" id="entry-date">
+            </div>
+            <div class="form-group">
+                <label for="entry-text">How are you feeling today?</label>
+                <textarea id="entry-text" placeholder="Be open and honest with yourself..."></textarea>
+            </div>
+            <button id="save-btn" onclick="saveEntry()">Save & Analyze</button>
+            
+            <div id="loading" class="loading-spinner">Analyzing feelings...</div>
+
+            <div id="result" class="result-box">
+                <h3 id="res-severity">Severity: ---</h3>
+                <p id="res-epds">Estimated EPDS Score: --</p>
+            </div>
+        </section>
+
+        <!-- History Area -->
+        <section class="card">
+            <h2>📖 History</h2>
+            <div id="history-list" class="history-panel">
+                <!-- Entries will appear here -->
+                <p id="no-entries" style="text-align: center; color: #999; margin-top: 20px;">No entries yet. Start writing!</p>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    const API_URL = "/api/entries/";
+
+    // Set default date to today
+    document.getElementById('entry-date').valueAsDate = new Date();
+
+    async function loadEntries() {
+        try {
+            const response = await fetch(API_URL);
+            const entries = await response.json();
+            renderEntries(entries);
+        } catch (error) {
+            console.error("Error loading entries:", error);
+        }
+    }
+
+    function renderEntries(entries) {
+        const list = document.getElementById('history-list');
+        const noEntries = document.getElementById('no-entries');
+        
+        if (entries.length === 0) {
+            noEntries.style.display = 'block';
+            list.querySelectorAll('.entry-card').forEach(e => e.remove());
+            return;
+        }
+
+        noEntries.style.display = 'none';
+        
+        // Clear existing entries
+        list.querySelectorAll('.entry-card').forEach(e => e.remove());
+
+        // Sort entries by date descending
+        entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        entries.forEach(entry => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            card.innerHTML = `
+                <div class="entry-header">
+                    <span class="entry-date">${entry.date}</span>
+                    <span class="entry-severity">${entry.analysis.severity}</span>
+                </div>
+                <p class="entry-text">${entry.text}</p>
+                <small style="color: #999">EPDS Score: ${entry.analysis.epds_score}</small>
+            `;
+            list.appendChild(card);
+        });
+    }
+
+    async function saveEntry() {
+        const dateInput = document.getElementById('entry-date');
+        const textInput = document.getElementById('entry-text');
+        const saveBtn = document.getElementById('save-btn');
+        const loading = document.getElementById('loading');
+        const resultBox = document.getElementById('result');
+
+        const date = dateInput.value;
+        const text = textInput.value.trim();
+
+        if (!text) {
+            alert("Please share your thoughts before saving.");
+            return;
+        }
+
+        // UI Feedback
+        saveBtn.disabled = true;
+        loading.style.display = 'block';
+        resultBox.style.display = 'none';
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, text })
+            });
+
+            if (!response.ok) throw new Error("Backend error");
+
+            const data = await response.json();
+            
+            // Show result
+            document.getElementById('res-severity').innerText = "Severity: " + data.analysis.severity;
+            document.getElementById('res-epds').innerText = "Estimated EPDS Score: " + data.analysis.epds_score;
+            resultBox.style.display = 'block';
+
+            // Reset form
+            textInput.value = "";
+            
+            // Reload history
+            loadEntries();
+
+        } catch (error) {
+            alert("Error connecting to backend API. Is it running?");
+            console.error(error);
+        } finally {
+            saveBtn.disabled = false;
+            loading.style.display = 'none';
+        }
+    }
+
+    // Initial load
+    loadEntries();
+</script>
+
+</body>
+</html>
