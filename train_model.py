@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import joblib
 
-from app.nlp.extractor import CombinedExtractor   # ONLY HERE
+from models_lib import CombinedExtractor
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
